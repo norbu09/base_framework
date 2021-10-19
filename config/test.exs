@@ -7,6 +7,10 @@ config :base_framework, BaseFrameworkWeb.Endpoint,
   secret_key_base: "LDNz+KSVMQjBuM99mbUSzWbkgalLVQDEZ935epjQsSJDyvNoEqyISTjt5brSJZNc",
   server: false
 
+config :ex_aws,
+  access_key_id: [{:system, "AWS_ACCESS_KEY_ID"}, :instance_role],
+  secret_access_key: [{:system, "AWS_SECRET_ACCESS_KEY"}, :instance_role]
+
 # In test we don't send emails.
 config :base_framework, BaseFramework.Mailer,
   adapter: Swoosh.Adapters.Test

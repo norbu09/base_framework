@@ -22,7 +22,7 @@ defmodule BaseFramework.Application do
 
     # make sure we have a content directory before anything starts
     BaseFramework.Storage.has_content_dir(@local_cache)
-    BaseFramework.Storage.S3.update(@bucket, @local_cache)
+    Task.start(BaseFramework.Storage.S3, :update, [@bucket, @local_cache])
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options

@@ -43,7 +43,7 @@ defmodule BaseFramework.Storage.S3 do
           :ok -> 
             case File.write(path, body) do
               :ok ->
-                Logger.debug("Updated #{path}")
+                Logger.info("Updated #{path}")
                 file
               err ->
                 Logger.warn("Had problems updating #{path}: #{inspect err}")
