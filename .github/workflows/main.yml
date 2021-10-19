@@ -10,21 +10,12 @@ jobs:
   test:
     name: Build and test
     runs-on: ubuntu-latest
-    services:
-      db:
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: postgres
-        image: postgres:11
-        ports: ['5432:5432']
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
     steps:
     - uses: actions/checkout@v2
+    - name: Get Package
+      uses: mstksg/get-package@v1
+      with:
+        apt-get: inotify-tools
     - name: Set up Elixir
       uses: erlef/setup-elixir@885971a72ed1f9240973bd92ab57af8c1aa68f24
       with:
