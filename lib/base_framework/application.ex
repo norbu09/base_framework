@@ -2,7 +2,6 @@ defmodule BaseFramework.Application do
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
   @moduledoc false
-  @bucket Application.compile_env!(:base_framework, [PardallMarkdown.Content, :s3_bucket])
   @local_cache Application.compile_env!(:pardall_markdown, [PardallMarkdown.Content, :root_path])
 
   use Application
@@ -15,14 +14,15 @@ defmodule BaseFramework.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: BaseFramework.PubSub},
       # Start the Endpoint (http/https)
-      BaseFrameworkWeb.Endpoint
+      BaseFrameworkWeb.Endpoint,
       # Start a worker by calling: BaseFramework.Worker.start_link(arg)
       # {BaseFramework.Worker, arg}
+      BaseFramework.Scheduler
     ]
 
     # make sure we have a content directory before anything starts
     BaseFramework.Storage.has_content_dir(@local_cache)
-    Task.start(BaseFramework.Storage.S3, :update, [@bucket, @local_cache])
+    Task.start(BaseFrameworkWeb.Content, :update, [])
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options

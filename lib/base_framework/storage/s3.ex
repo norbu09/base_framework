@@ -5,6 +5,7 @@ defmodule BaseFramework.Storage.S3 do
     case ExAws.S3.list_objects_v2(bucket) |> ExAws.request() do
       {:ok, %{body: %{contents: files}}} ->
         get_new(files, local, bucket)
+        BaseFrameworkWeb.Content.force_content_reload()
       err -> 
         Logger.warn("Could not update: #{inspect err}")
         {:ok, :no_files}
