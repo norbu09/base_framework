@@ -18,6 +18,12 @@ defmodule BaseFrameworkWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+
+    live "/categories", Live.Index, :taxonomy_tree,
+      container: {:main, class: ""}
+
+    live "/sitemap", Live.Index, :content_tree,
+      container: {:main, class: ""}
   end
 
   # Other scopes may use custom stacks.
@@ -51,5 +57,13 @@ defmodule BaseFrameworkWeb.Router do
 
       forward "/mailbox", Plug.Swoosh.MailboxPreview
     end
+  end
+
+  # fallback, if we have no specific content mapped earlier see if we can find content in the CMS
+  scope "/", BaseFrameworkWeb do
+    pipe_through :browser
+
+    live "/*slug", Live.Content, :show,
+      container: {:main, class: ""}
   end
 end

@@ -47,6 +47,10 @@ defmodule BaseFrameworkWeb do
       use Phoenix.LiveView,
         layout: {BaseFrameworkWeb.LayoutView, "live.html"}
 
+      alias BaseFrameworkWeb.Endpoint
+      alias PardallMarkdown.Content.Repository
+      import PardallMarkdown.Content.Filters
+
       unquote(view_helpers())
     end
   end
@@ -90,6 +94,11 @@ defmodule BaseFrameworkWeb do
       import BaseFrameworkWeb.ErrorHelpers
       import BaseFrameworkWeb.Gettext
       alias BaseFrameworkWeb.Router.Helpers, as: Routes
+
+      import BaseFrameworkWeb.Utils
+      import BaseFrameworkWeb.ContentHelpers
+      import BaseFrameworkWeb.PardallMarkdownHelpers
+      import BaseFrameworkWeb.Live.PostComponents
     end
   end
 
