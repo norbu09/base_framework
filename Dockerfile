@@ -34,8 +34,6 @@ RUN npm --prefix ./assets ci --progress=false --no-audit --loglevel=error
 
 COPY priv priv
 COPY assets assets
-# FIXME: sync the local cache repo for now till we have it in S3
-COPY local_cache local_cache
 
 # NOTE: If using TailwindCSS, it uses a special "purge" step and that requires
 # the code in `lib` to see what is being used. Uncomment that here before

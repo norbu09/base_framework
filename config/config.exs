@@ -56,7 +56,7 @@ config :pardall_markdown, PardallMarkdown.Content,
   #
   # This can be any relative or absolute path,
   # including outside of the application.
-  root_path: "./local_cache",
+  root_path: "./priv/static/local_cache",
 
   # The path that contains static assets,
   # those files won't be parsed.
