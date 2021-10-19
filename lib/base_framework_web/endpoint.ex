@@ -20,7 +20,7 @@ defmodule BaseFrameworkWeb.Endpoint do
     at: "/",
     from: :base_framework,
     gzip: true,
-    only: ~w(assets fonts images favicon.ico robots.txt local_content)
+    only: ~w(assets fonts images favicon.ico robots.txt)
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.

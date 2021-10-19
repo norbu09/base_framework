@@ -19,6 +19,10 @@ if config_env() == :prod do
       You can generate one by calling: mix phx.gen.secret
       """
 
+  config :ex_aws,
+    access_key_id: [{:system, "AWS_ACCESS_KEY_ID"}, :instance_role],
+    secret_access_key: [{:system, "AWS_SECRET_ACCESS_KEY"}, :instance_role]
+
   config :base_framework, BaseFrameworkWeb.Endpoint,
     http: [
       # Enable IPv6 and bind on all interfaces.

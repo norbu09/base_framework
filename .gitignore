@@ -35,3 +35,6 @@ base_framework-*.tar
 npm-debug.log
 /assets/node_modules/
 
+# local content folder and sync metadata
+/local_cache/
+.s3_last_updated

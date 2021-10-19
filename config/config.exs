@@ -36,6 +36,12 @@ config :esbuild,
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
   ]
 
+config :ex_aws,
+  json_codec: Jason,
+  access_key_id: [{:system, "AWS_ACCESS_KEY_ID"}, {:awscli, "default", 30}, :instance_role],
+  secret_access_key: [{:system, "AWS_SECRET_ACCESS_KEY"}, {:awscli, "default", 30}, :instance_role],
+  region: "eu-central-1"
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
@@ -47,7 +53,8 @@ config :phoenix, :json_library, Jason
 # pardall_markdown config
 config :base_framework, PardallMarkdown.Content,
   site_name: "Base Framework",
-  site_description: "a good starting point."
+  site_description: "a good starting point.",
+  s3_bucket: "baseframework.content"
 
 config :pardall_markdown, PardallMarkdown.Content,
   # Where all of the uncompiled assets and content will live on
@@ -56,7 +63,7 @@ config :pardall_markdown, PardallMarkdown.Content,
   #
   # This can be any relative or absolute path,
   # including outside of the application.
-  root_path: "./priv/static/local_cache",
+  root_path: "./local_cache",
 
   # The path that contains static assets,
   # those files won't be parsed.
