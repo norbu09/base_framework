@@ -17,7 +17,7 @@ config :base_framework, BaseFrameworkWeb.Endpoint,
 config :base_framework, BaseFramework.Scheduler,
   jobs: [
     # check for content updates every 10 minutes
-    {"*/10 * * * *",   {BaseFramework.Storage.S3, :update, []}}
+    {"*/10 * * * *",   {BaseFrameworkWeb.Content, :update, []}}
   ]
 
 # Do not print debug messages in production
