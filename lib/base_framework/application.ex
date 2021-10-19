@@ -2,6 +2,7 @@ defmodule BaseFramework.Application do
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
   @moduledoc false
+  @local_cache Application.compile_env!(:pardall_markdown, [PardallMarkdown.Content, :root_path])
 
   use Application
 
@@ -17,6 +18,9 @@ defmodule BaseFramework.Application do
       # Start a worker by calling: BaseFramework.Worker.start_link(arg)
       # {BaseFramework.Worker, arg}
     ]
+
+    # make sure we have a content directory before anything starts
+    BaseFramework.Storage.has_content_dir(@local_cache)
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
