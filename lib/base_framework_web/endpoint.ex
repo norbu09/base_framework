@@ -19,8 +19,8 @@ defmodule BaseFrameworkWeb.Endpoint do
   plug Plug.Static,
     at: "/",
     from: :base_framework,
-    gzip: false,
-    only: ~w(assets fonts images favicon.ico robots.txt)
+    gzip: true,
+    only: ~w(assets fonts images favicon.ico robots.txt local_content)
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
