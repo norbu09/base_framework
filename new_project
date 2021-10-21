@@ -1,0 +1,106 @@
+#!/bin/sh
+#TODO:
+# - fix hostname | replace all shy-sky-449 to the generated hostname
+# - set up env variables
+# - create S3 bucket
+
+cwd=`pwd`
+repo="https://github.com/norbu09/base_framework.git"
+npm=npm
+s3_region="eu-central-1"
+fly_region="fra"
+
+echo "Enter the name of your new project:"
+read name
+echo "Enter the base path to your projects (like ${HOME}/code):"
+read path
+
+camelcase=`echo "${name}" | perl -pe 's/(^|_)([a-z])/uc($2)/ge'`
+hostname=`echo "${name}" | sed "s/_/-/g"`
+
+echo "I will create a new project under ${path}/${name}"
+while true; do
+  read -p "does this look correct? " yn
+  case $yn in
+    [Nn]* )
+      cd ${cwd}
+      exit;;
+    [Yy]* )
+      echo "+ creating directory ${name}"
+      mkdir -p ${path}
+
+      echo "+ bootstrapping directory"
+      git clone --depth=1 ${repo} ${path}/${name}
+      cd ${path}/${name}
+      rm -rf .git
+
+      echo "+ renaming directories"
+      for k in `find . -name *base_framework* -type d`; do
+        file=`echo ${k} | sed "s/base_framework/${name}/g"`
+        mv "${k}" "${file}"
+      done
+      echo "+ renaming directories (2nd pass)"
+      for k in `find . -name *base_framework* -type d`; do
+        file=`echo ${k} | sed "s/base_framework/${name}/g"`
+        mv "${k}" "${file}"
+      done
+
+      echo "+ renaming files"
+      for k in `find . -name *base_framework* -type f`; do
+        file=`echo ${k} | sed "s/base_framework/${name}/g"`
+        mv "${k}" "${file}"
+      done
+
+      echo "+ patching files"
+      tmp="/tmp/${name}.out.tmp.$$"
+      for i in `grep -rl base_framework *`; do
+        sed "s/base_framework/${name}/g" "${i}" > ${tmp} && mv ${tmp} "${i}"
+      done
+      for j in `grep -rl BaseFramework *`; do
+        sed "s/BaseFramework/${camelcase}/g" "${j}" > ${tmp} && mv ${tmp} "${j}"
+      done
+      for k in `grep -rl base-framework *`; do
+        sed "s/base-framework/${hostname}/g" "${k}" > ${tmp} && mv ${tmp} "${k}"
+      done
+      for l in `grep -rl eu-central-1 *`; do
+        sed "s/eu-central-1/${s3_region}/g" "${l}" > ${tmp} && mv ${tmp} "${l}"
+      done
+
+      echo "+ fetching elixir dependencies"
+      mix deps.get
+
+      echo "+ fetching js dependencies"
+      cd assets
+      $npm install
+      cd -
+
+      echo "+ bootstraping git"
+      git init
+      git add .
+      git commit -m "empty ${name} project - fill me with ideas"
+
+      echo "+ set up S3 bucket"
+      aws s3api create-bucket --bucket ${hostname}.content --region ${s3_region} --create-bucket-configuration LocationConstraint=${s3_region}
+
+      echo "+ set up fly.io"
+      flyctl launch --name ${hostname} --region ${fly_region} --no-deploy
+      # FIXME: got a problem with compiling for the first time so the secret generation doesn't work
+      #secret=`mix phx.gen.secret`
+      #flyctl secrets set SECRET_KEY_BASE=${secret}
+
+
+      exit;;
+    * ) echo "Please answer yes or no.";;
+  esac
+
+
+  echo "+ next steps: init fly.io with:"
+  echo "flyctl launch"
+  echo "mix phx.gen.secret"
+  echo "flyctl secrets set SECRET_KEY_BASE="
+  echo "flyctl secrets set AWS_ACCESS_KEY_ID="
+  echo "flyctl secrets set AWS_SECRET_ACCESS_KEY_ID="
+  echo "+ set up github and the keys above as github secrets for that repo"
+  echo "+ try your new project out by running:"
+  echo "iex -S mix phx.server"
+done

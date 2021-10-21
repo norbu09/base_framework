@@ -11,7 +11,7 @@ import Config
 # before starting your production server.
 # FIXME: hard coded the fly.io temp hostname here
 config :base_framework, BaseFrameworkWeb.Endpoint,
-  url: [host: "shy-sky-449.fly.dev", port: 80],
+  url: [host: "base-framework.fly.dev", port: 80],
   cache_static_manifest: "priv/static/cache_manifest.json"
 
 config :base_framework, BaseFramework.Scheduler,

@@ -1,3 +1,4 @@
 # dockerignore
 assets/node_modules/
 deps/
+new_project

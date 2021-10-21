@@ -54,7 +54,7 @@ config :phoenix, :json_library, Jason
 config :base_framework, PardallMarkdown.Content,
   site_name: "Base Framework",
   site_description: "a good starting point.",
-  s3_bucket: "baseframework.content"
+  s3_bucket: "base-framework.content"
 
 config :pardall_markdown, PardallMarkdown.Content,
   # Where all of the uncompiled assets and content will live on
