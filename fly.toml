@@ -1,3 +1,5 @@
+# fly.toml file generated for base-framework on 2021-10-21T11:31:24+02:00
+
 app = "base-framework"
 
 kill_signal = "SIGTERM"
