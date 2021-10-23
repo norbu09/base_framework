@@ -3,9 +3,16 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+/* font import */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500&family=Josefin+Sans:ital,wght@0,400;1,300&display=swap');
+
 /* For Phoenix Live reload script */
 [hidden] {
   display: none;
+}
+
+.font-display {
+  font-family: "Inter", sans-serif;
 }
 
 /* FORMS */
