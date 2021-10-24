@@ -10,13 +10,13 @@
     <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
   </head>
   <!-- <body style="font-family: 'Josefin Sans', sans-serif;">   -->
-  <body class="font-sans antialiased">
+  <body x-data class="antialiased font-sans h-screen mx-auto flex justify-between max-w-7xl">
 
-  <div class="h-screen mx-auto flex justify-between max-w-7xl">
-    <%= render "menu.html" %>
+    <div class="">
+      <%= render "menu.html" %>
 
-    <%= @inner_content %>
-  </div>
+      <%= # @inner_content %>
+    </div>
 
   </body>
 </html>
