@@ -15,16 +15,21 @@ config :base_framework, BaseFrameworkWeb.Endpoint,
   debug_errors: true,
   secret_key_base: "nIYCKMQ1bN0LjTSqgJpGjjb1uDJTy87NSoq71Rs5KXOOBjnCfjgqQLhvVh5h46xF",
   watchers: [
-    # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
-    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
-    npx: [
-      "tailwindcss",
-      "--input=css/app.css",
-      "--output=../priv/static/assets/app.css",
-      "--postcss",
-      "--watch",
-      cd: Path.expand("../assets", __DIR__)
+    node: [
+      "build.js",
+      cd: Path.expand("../assets/scripts/", __DIR__),
+      env: %{"ESBUILD_LOG_LEVEL" => "silent", "ESBUILD_WATCH" => "1", "NODE_ENV" => "development"}
     ]
+    # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
+    #esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch --loader:.woff=file --loader:.woff2=file)]},
+    #npx: [
+    #  "tailwindcss",
+    #  "--input=css/app.css",
+    #  "--output=../priv/static/assets/app.css",
+    #  "--postcss",
+    #  "--watch",
+    #  cd: Path.expand("../assets", __DIR__)
+    #]
   ]
 
 # ## SSL Support

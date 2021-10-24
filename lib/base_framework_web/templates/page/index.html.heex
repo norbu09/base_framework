@@ -1,11 +1,19 @@
-<div class="w-full font-display">
-  <div class="flex justify-between max-w-6xl mx-auto py-5 items-center">
-    <div class="">
-      <h2 class="text-2xl tracking-tighter text-semibold text-gray-700">
+<!-- header -->
+<!--
+<nav class="w-full font-display shadow-md lg:shadow-none">
+  <div class="flex justify-between max-w-6xl mx-auto py-5 items-center px-5 py-5 xl:px-2">
+    <div class="lg:hidden">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </div>
+    <div class="flex items-center">
+    <img src="/images/logo.png" class="w-8 h-8" />
+      <h2 class="hidden text-2xl tracking-tighter text-semibold text-gray-700 lg:block">
         BaseFramework
       </h2>
     </div>
-    <ul class="flex items-center space-x-8 font-semibold text-gray-700 text-sm">
+    <ul class="hidden items-center space-x-8 font-semibold text-gray-700 text-sm lg:flex">
       <li class="cursor-pointer hover:text-gray-400 transition duration-200">For Developers</li>
       <li class="cursor-pointer hover:text-gray-400 transition duration-200">For Teams</li>
       <li class="flex space-x-1 items-centercursor-pointer hover:text-gray-400 transition duration-200">
@@ -18,7 +26,36 @@
     </ul>
     <div class="flex space-x-3 text-sm items-center">
       <a href="#" class="text-red-600 hover:text-red-500 text-semibold transition duration-200">Sign In</a>
-      <a href="#" class="px-3 py-2 font-semibold text-white transform rounded-sm shadow-sm bg-red-600 hover:bg-red-500 hover:-translate-y-px transition duration-300 hover:shadow-lg">Try for Free</a>
+      <a href="#" class="hidden lg:block px-3 py-2 font-semibold text-white transform rounded-sm shadow-sm bg-red-600 hover:bg-red-500 hover:-translate-y-px transition duration-300 hover:shadow-lg">Try for Free</a>
     </div>
   </div>
+</nav>
+-->
+
+<!-- hearo heading -->
+
+<div class="max-w-6xl mx-auto mt-24 grid grid-cols-1 lg:grid-cols-7 px-5 xl:px-2 md:px-14">
+  <div class="w-full h-full col-span-full lg:col-span-4 lg:pr-8 mx-auto">
+    <h1 class="text-5xl lg:text-7xl font-bold tracking-tight">
+      BaseFramework is the best thing
+    </h1>
+    <h3 class="text-2xl text-gray-700 mt-3 leading-relaxed">
+    with this framework you get started in no time - try it out today. This framework has been used to build awesome stuff!
+    </h3>
+    <div class="flex space-x-4 mt-8">
+      <a href="#" class="px-5 py-3 font-semibold text-white transform rounded-sm shadow-sm bg-red-600 hover:bg-red-500 hover:-translate-y-px transition duration-300 hover:shadow-lg">
+        Try for Free
+      </a>
+      <a href="#" class="px-5 py-3 tracking-tight transform rounded-sm shadow-sm bg-white hover:shadow-md border border-gray-200 hover:border-gray-300 hover:-translate-y-px transition duration-300 hover:text-gray-700">
+        See Pricing
+      </a>
+    </div>
+    <p class="max-w-xs mt-4 text-xs text-gray-500 leading relaxed">
+      Try out the BaseFramework it is an amazing thing to play with. Check out the documwentation on how to get started
+    </p>
+  </div>
+  <div class="max-w-lg lg:max-w-full mx-auto col-span-full lg:col-span-3">
+    <img src="/images/kfos.png" class="w-full h-full object-contain" />
+  </div>
 </div>
+

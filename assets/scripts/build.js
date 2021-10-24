@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const { watch } = require('chokidar');
+const { sassPlugin } = require("esbuild-sass-plugin");
 const postcss = require('postcss');
 const autoprefixer = require('autoprefixer');
 const tailwindcss = require('tailwindcss');
@@ -33,6 +34,15 @@ function build(entryFile, outFile) {
 			'.woff2': 'file'
 		},
 		plugins: [
+  		sassPlugin({
+				async transform(source, resolveDir) {
+					const { css } = await postcss(
+						autoprefixer,
+						tailwindcss(path.resolve(__dirname, "../tailwind.config.js"))
+					).process(source)
+					return css
+				}
+			})
 		],
 		define: {
 			'process.env.NODE_ENV': MODE === 'dev' || MODE === 'development' ? '"development"' : '"production"',
