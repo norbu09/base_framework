@@ -1,26 +1,24 @@
-<div class="d-flex row">
-  <div class="order-2 col-sm-12 col-md-8 col-lg-9 order-lg-1">
-    <article class="blog-post">
-      <nav class="crumbs"><%= raw taxonomy_tree_list(@live_content.taxonomies) %></nav>
-      <h1 class="blog-post-title"><%= @live_content.title %></h1>      
-      <p class="blog-post-meta"><%= format_date(@live_content.date) %></p>
-
-      <div class="d-sm-block d-md-none">
-        <h6>Table of Contents</h6>
-        <%= raw post_toc_list(@live_content.toc) %>
-      </div>
-
-      <%= if(not @live_content.is_published) do %>
-      <p class="alert alert-danger" role="alert">
-          This post is still a draft, its contents may change at any time
+<div class="max-w-6xl mx-auto mt-10 grid grid-cols-1 lg:grid-cols-7 px-5 xl:px-2 md:px-14">
+  <div class="lg:col-span-5 p-5">
+    <%= if(not @live_content.is_published) do %>
+    <p class="w-full rounded-sm bg-yellow-500 p-5 text-white font-bold" role="alert">
+        This post is still a draft, its contents may change at any time
+    </p>
+    <% end %>
+    <article class="mt-5">
+      <p class="flex text-gray-400 mt-5 justify-end">
+      first published on <br />
+      <%= format_date(@live_content.date) %>
       </p>
-      <% end %>
 
-      <%= raw(@live_content.content) %>
+
+      <div class="prose lg:prose-xl mt-5">
+        <%= raw(@live_content.content) %>
+      </div>
     </article>
   </div>
 
-  <div class="d-none order-1 col-sm-12 col-md-4 d-md-block col-lg-3 order-lg-2">
+  <div class="hide md:block prose">
     <aside>
       <strong>Table of Contents</strong>
       <%= raw post_toc_list(@live_content.toc) %>
