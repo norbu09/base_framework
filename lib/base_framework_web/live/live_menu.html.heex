@@ -1,42 +1,13 @@
   <div class="z-40">
     <!-- thanks to https://www.youtube.com/watch?v=Q9eynRwc1CA -->
     <!-- mobile menu toggle -->
-    <button @click="$store.sidebar.navOpen=!$store.sidebar.navOpen"
-      class="sm:hidden absolute top-5 right-5 focus:outline-none">
-      <svg xmlns="http://www.w3.org/2000/svg" 
-           x-bind:class="$store.sidebar.navOpen ? 'hidden':''"
-           width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
-        <line x1="17" y1="10" x2="3" y2="10"></line>
-        <line x1="21" y1="6" x2="3" y2="6"></line>
-        <line x1="21" y1="14" x2="3" y2="14"></line>
-        <line x1="17" y1="18" x2="3" y2="18"></line>
-      </svg>
-      <svg x-cloak xmlns="http://www.w3.org/2000/svg" 
-           x-bind:class="$store.sidebar.navOpen ? '':'hidden'"
-           width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
-        <circle cx="12" cy="12" r="10"></circle>
-        <line x1="8" y1="12" x2="16" y2="12"></line>
-      </svg>
-    </button>
-
-    <div class="h-screen bg-gray-200 fixed transition-all duration-300 space-y-2 sm:relative"
-         x-bind:class="{'w-64':$store.sidebar.full, 'w-64 sm:w-20':!$store.sidebar.full, 'top-0 left-0':!$store.sidebar.navOpen, 'top-0 -left-64 sm:left-0':!$store.sidebar.navOpen}">
-      <h1 class="text-red-600 font-black py-4"
-          x-bind:class="$store.sidebar.full ? 'text-2xl px-4' : 'text-xl px-4 xm:px-2'">
-        BaseFramework
-      </h1>
+    <.nav_button click="toggle_nav" full={@full} />
+    <.nav_bar full={@full} nav_open={@nav_open}>
 
       <div class="px-4 space-y-2">
 
         <!--  sidebar toggle  -->
-        <button @click="$store.sidebar.full = !$store.sidebar.full"
-          class="hidden sm:block focus:outline-none absolute -right-3 p-1 top-10 bg-red-600 rounded-full shadow-md">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
-            class="h-4 w-4 transition-all duration-300 transform text-white" 
-            x-bind:class="$store.sidebar.full ? 'rotate-90':'-rotate-90' " >
-            <polyline points="6 9 12 15 18 9"></polyline>
-          </svg>
-        </button>
+        <.nav_toggle click="toggle_nav" full={@full} />
 
         <!-- home -->
         <div @click="$store.sidebar.active='home'" 
@@ -192,6 +163,6 @@
         </div>
 
       </div>
-    </div>
+    </.nav_bar>
   </div>
 
