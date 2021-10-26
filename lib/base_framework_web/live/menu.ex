@@ -1,10 +1,13 @@
 defmodule BaseFrameworkWeb.LiveMenu do
   use Phoenix.LiveView
+  use Phoenix.HTML
   require Logger
+  alias BaseFrameworkWeb.MenuHelpers
 
   def mount(_params, _session, socket) do
     {:ok, assign(socket, 
       nav_open: false,
+      active: "home",
       full: false)
     }
   end
@@ -14,7 +17,13 @@ defmodule BaseFrameworkWeb.LiveMenu do
       true -> false
       false -> true
     end
+    Logger.debug("toggling menu state")
     {:noreply, socket |> assign(:full, state)}
+  end
+
+  def handle_event("click_nav_item", %{"path" => path}, socket) do
+    Logger.debug("new path: #{inspect path}")
+    {:noreply, socket |> assign(:active, path)}
   end
 
   def nav_bar(%{full: full, nav_open: nav_open, inner_block: inner_block}) do
@@ -31,7 +40,7 @@ defmodule BaseFrameworkWeb.LiveMenu do
     end
     main_class = case nav_open do
       true -> m_class
-      false -> m_class <> "top-0 -left-64 sm:left-0"
+      false -> m_class <> " top-0 -left-64 sm:left-0"
     end
     assigns = %{full: full, main_class: main_class, h_class: h_class, nav_open: nav_open, inner_block: inner_block}
 
@@ -85,6 +94,36 @@ defmodule BaseFrameworkWeb.LiveMenu do
         <polyline points="6 9 12 15 18 9"></polyline>
       </svg>
     </button>
+    """
+  end
+
+  def nav_item(%{name: name, full: full, click: click, active: active, value: value}) do
+
+    {h_class, m_class} = case full do
+      true -> {
+          "block",
+          "justify-start"
+      }
+      false -> {
+          "sm:hidden",
+          "sm:justify-center"
+      }
+    end
+    Logger.debug("active: >#{active}< - name: >#{name}<")
+    c2 = case active == name do
+      true -> m_class <> " text-gray-200 bg-red-600"
+      false -> m_class <> " text-gray-400"
+    end 
+    assigns = Map.merge(MenuHelpers.item(name), %{full: full, click: click, class: c2, h_class: h_class, value: value})
+
+    ~H"""
+    <div phx-click={@click} phx-value-path={@value}
+         class={"relative flex items-center hover:text-gray-200 hover:bg-gray-800 space-x-2 rounder-md p-2 cursor-pointer #{@class}"}>
+         <%= raw @svg %>
+    <h1 class={@h_class}>
+      <%= @title %>
+    </h1>
+    </div>
     """
   end
 
