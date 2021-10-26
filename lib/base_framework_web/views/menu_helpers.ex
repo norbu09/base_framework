@@ -10,7 +10,7 @@ defmodule BaseFrameworkWeb.MenuHelpers do
 
     %{
       svg: svg,
-      title: "Home"
+      title: "Home",
     }
   end
 
@@ -25,7 +25,7 @@ defmodule BaseFrameworkWeb.MenuHelpers do
 
     %{
       svg: svg,
-      title: "Info"
+      title: "Info",
     }
   end
 end

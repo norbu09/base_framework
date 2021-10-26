@@ -10,10 +10,15 @@
         <.nav_toggle click="toggle_nav" full={@full} />
 
         <!-- home -->
-        <.nav_item name="home" active={@active} full={@full} click="click_nav_item" value="home" />
+        <.nav_item name="home" active={@active} full={@full} click="click_nav_item" value="/" />
 
         <!-- info -->
-        <.nav_item name="info" active={@active} full={@full} click="click_nav_item" value="info" />
+        <.nav_item name="info" active={@active} full={@full} click="click_nav_item" value="/base-framework" />
+
+
+
+
+        <!--   save for later 
         <div @click="$store.sidebar.active='info'" x-data="dropdown" class="relative">
           <div @click="toggle('info')"
                x-data="tooltip"
@@ -41,9 +46,8 @@
             <h1 class="hover:text-gray-900 curser-pointer">Item 2</h1>
             <h1 class="hover:text-gray-900 curser-pointer">Item 3</h1>
           </div>
-        </div>
+        </div> 
 
-        <!-- blog -->
         <div @click="$store.sidebar.active='blog'" class="relative flex justify-between items-center text-gray-400 hover:text-gray-200 hover:bg-gray-800 space-x-2 rounder-md p-2 cursor-pointer"
              x-data="tooltip"
              x-on:mouseover="show=true"
@@ -59,7 +63,6 @@
           <h1 x-cloak x-bind:class="$store.sidebar.full ? '':'sm:hidden'" class="w-5 h-5 p-1 bg-green-400 rounded-sm text-sm leading-3 text-center text-gray-200">8</h1>
         </div>
 
-        <!-- schedules -->
         <div @click="$store.sidebar.active='schedules'" class="relative flex justify-between items-center text-gray-400 hover:text-gray-200 hover:bg-gray-800 space-x-2 rounder-md p-2 cursor-pointer"
              x-data="tooltip"
              x-on:mouseover="show=true"
@@ -82,7 +85,6 @@
           </div>
         </div>
 
-        <!-- income -->
         <div @click="$store.sidebar.active='income'"  x-data="dropdown" class="relative">
           <div @click="toggle('income')"
                class="flex justify-between text-gray-400 hover:text-gray-200 hover:bg-gray-800 space-x-2 rounder-md p-2 cursor-pointer"
@@ -122,7 +124,6 @@
           </div>
         </div>
 
-        <!-- promote -->
         <div @click="$store.sidebar.active='promote'" x-data="dropdown" class="relative">
           <div @click="toggle('promote')"
                class="flex justify-between text-gray-400 hover:text-gray-200 hover:bg-gray-800 space-x-2 rounder-md p-2 cursor-pointer"
@@ -151,6 +152,7 @@
             <h1 class="hover:text-gray-900 curser-pointer">Item 3</h1>
           </div>
         </div>
+            -->
 
       </div>
     </.nav_bar>

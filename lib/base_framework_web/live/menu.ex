@@ -18,12 +18,13 @@ defmodule BaseFrameworkWeb.LiveMenu do
       false -> true
     end
     Logger.debug("toggling menu state")
-    {:noreply, socket |> assign(:full, state)}
+    {:noreply, socket |> assign(full: state, nav_open: state)}
   end
 
   def handle_event("click_nav_item", %{"path" => path}, socket) do
     Logger.debug("new path: #{inspect path}")
-    {:noreply, socket |> assign(:active, path)}
+    redir_socket = socket |> assign(:active, path)
+    {:noreply, push_redirect(redir_socket, to: path, replace: true)}
   end
 
   def nav_bar(%{full: full, nav_open: nav_open, inner_block: inner_block}) do
@@ -117,14 +118,19 @@ defmodule BaseFrameworkWeb.LiveMenu do
     assigns = Map.merge(MenuHelpers.item(name), %{full: full, click: click, class: c2, h_class: h_class, value: value})
 
     ~H"""
-    <div phx-click={@click} phx-value-path={@value}
-         class={"relative flex items-center hover:text-gray-200 hover:bg-gray-800 space-x-2 rounder-md p-2 cursor-pointer #{@class}"}>
-         <%= raw @svg %>
-    <h1 class={@h_class}>
-      <%= @title %>
-    </h1>
+    <div>
+      <div phx-click={@click} phx-value-path={@value}
+           class={"relative flex items-center justify-between hover:text-gray-200 hover:bg-gray-800 space-x-2 rounder-md p-2 cursor-pointer #{@class}"}>
+        <div class="flex items-center space-x-2">
+          <%= raw @svg %>
+          <h1 class={@h_class}>
+            <%= @title %>
+          </h1>
+        </div>
+      </div>
     </div>
     """
   end
+
 
 end
