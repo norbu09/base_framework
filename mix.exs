@@ -71,10 +71,14 @@ defmodule BaseFramework.MixProject do
     [
       setup: ["deps.get"],
       "assets.deploy": [
-        "cmd --cd assets npm run deploy",
-        "esbuild default --minify",
+        "cmd --cd assets NODE_ENV=production node scripts/build.js",
         "phx.digest"
       ]
+      #"assets.deploy": [
+      #  "cmd --cd assets npm run deploy",
+      #  "esbuild default --minify",
+      #  "phx.digest"
+      #]
     ]
   end
 end

@@ -1,7 +1,6 @@
 // We import the CSS which is extracted to its own file by esbuild.
 // Remove this line if you add a your own CSS build pipeline (e.g postcss).
-//import "../css/app.css"
-import Alpine from "alpinejs";
+import "../css/app.scss"
 
 // If you want to use Phoenix channels, run `mix help phx.gen.channel`
 // to get started and then uncomment the line below.
@@ -26,25 +25,55 @@ import "phoenix_html"
 import {Socket} from "phoenix"
 import {LiveSocket} from "phoenix_live_view"
 import topbar from "../vendor/topbar"
+import Alpine from "alpinejs"
 
-// add Alpine.js
+// font includes
+require("typeface-quicksand");
+
 window.Alpine = Alpine;
-Alpine.start();
+// Sidebar
+Alpine.store('sidebar', {
+  full: false,
+  active: "home",
+  navOpen: false
+})
+Alpine.data('dropdown', () => ({
+  open: false,
+  toggle(tab) {
+    this.open = !this.open;
+    Alpine.store('sidebar').active = tab;
+  }
+}))
+Alpine.data('sub_dropdown', () => ({
+  sub_open: false,
+  sub_toggle() {
+    this.sub_open = !this.sub_open;
+  },
+}))
+Alpine.data('tooltip', () => ({
+  show: false,
+}))
 
-let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
-let hooks = {};
-let liveSocket = new LiveSocket("/live", Socket, {
+Alpine.start()
+
+let Hooks = {}
+// Hooks.Example = { mounted() { } }
+
+let csrfToken = document
+  .querySelector("meta[name='csrf-token']")
+  .getAttribute('content')
+
+let liveSocket = new LiveSocket('/live', Socket, {
+  hooks: Hooks,
   params: { _csrf_token: csrfToken },
-  hooks: hooks,
   dom: {
     onBeforeElUpdated(from, to) {
       if (from._x_dataStack) {
         window.Alpine.clone(from, to);
       }
-    },
-  },
-});
-
+    }
+  }
+})
 
 // Show progress bar on live navigation and form submits
 topbar.config({barColors: {0: "#29d"}, shadowColor: "rgba(0, 0, 0, .3)"})
@@ -59,3 +88,4 @@ liveSocket.connect()
 // >> liveSocket.enableLatencySim(1000)  // enabled for duration of browser session
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket
+

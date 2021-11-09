@@ -1,24 +1,27 @@
-<div class="row">
-  <div class="order-2 order-lg-1 col-lg-2">
-    <h6><%= live_redirect @top_taxonomy.title, to: @top_taxonomy.slug %></h6>
-    <nav class="collapsible_sidebar">
-      <%= raw collapsible_taxonomy_tree_list(@content_tree) %>
-    </nav>
+<div class="max-w-6xl mx-auto mt-10 grid grid-cols-1 lg:grid-cols-7 px-5 xl:px-2 md:px-14">
+
+  <div class="lg:col-span-5 p-5 mt-5">
+    <article class="">
+      <h1 class="text-xl font-bold"><%= @live_content.title %></h1>
+
+      <div class="mt-5">
+        <%= if(not is_nil(@live_content.index_post) and not is_nil(@live_content.index_post.content)) do %>
+        <%= raw(@live_content.index_post.content) %>
+        <% end %>
+      </div>
+
+      <div class="mt-5">
+        <%= for post <- @live_content.children do %>
+        <.card content={post} col_class="col"/>
+        <% end %>
+      </div>
+    </article>
   </div>
 
-  <div class="order-1 order-lg-2 col-lg-10">
-    <div class="row">
-      <article class="blog-post">
-      <h1><%= @live_content.title %></h1>
-
-      <%= if(not is_nil(@live_content.index_post) and not is_nil(@live_content.index_post.content)) do %>
-        <%= raw(@live_content.index_post.content) %>
-      <% end %>
-
-      <%= for post <- @live_content.children do %>
-        <.card content={post} col_class="col"/>
-      <% end %>
-      </article>
-    </div>
+  <div class="mt-5">
+    <h6 class=""><%= live_redirect @top_taxonomy.title, to: @top_taxonomy.slug %></h6>
+    <nav class="prose">
+      <%= raw collapsible_taxonomy_tree_list(@content_tree) %>
+    </nav>
   </div>
 </div>

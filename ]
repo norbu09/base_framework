@@ -1,0 +1,24 @@
+<div class="max-w-6xl mx-auto mt-10 px-5 xl:px-2 md:px-14">
+  <div class="">
+    <h6 class="text-red-400 font-bold text-xl"><%= live_redirect @top_taxonomy.title, to: @top_taxonomy.slug %></h6>
+    <nav class="prose">
+      <%= raw collapsible_taxonomy_tree_list(@content_tree) %>
+    </nav>
+  </div>
+
+  <div class="">
+    <div class="row">
+      <article class="">
+      <h1><%= @live_content.title %></h1>
+
+      <%= if(not is_nil(@live_content.index_post) and not is_nil(@live_content.index_post.content)) do %>
+        <%= raw(@live_content.index_post.content) %>
+      <% end %>
+
+      <%= for post <- @live_content.children do %>
+        <.card content={post} col_class="col"/>
+      <% end %>
+      </article>
+    </div>
+  </div>
+</div>

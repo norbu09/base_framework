@@ -1,0 +1,160 @@
+  <div class="">
+    <!-- thanks to https://www.youtube.com/watch?v=Q9eynRwc1CA -->
+    <!-- mobile menu toggle -->
+    <.nav_button click="toggle_nav" full={@full} />
+    <.nav_bar full={@full} nav_open={@nav_open}>
+
+      <div class="px-4 space-y-2">
+
+        <!--  sidebar toggle  -->
+        <.nav_toggle click="toggle_nav" full={@full} />
+
+        <!-- home -->
+        <.nav_item name="home" active={@active} full={@full} click="click_nav_item" value="/" />
+
+        <!-- info -->
+        <.nav_item name="info" active={@active} full={@full} click="click_nav_item" value="/base-framework" />
+
+
+
+
+        <!--   save for later 
+        <div @click="$store.sidebar.active='info'" x-data="dropdown" class="relative">
+          <div @click="toggle('info')"
+               x-data="tooltip"
+               x-on:mouseover="show=true"
+               x-on:mouseleave="show=false"
+               class="flex justify-between text-gray-600 hover:text-gray-900 space-x-2 rounder-md p-2 cursor-pointer"
+               x-bind:class="{'justify-start':$store.sidebar.full, 'sm:justify-center':!$store.sidebar.full, 'text-gray-200 bg-red-600':$store.sidebar.active == 'info', 'text-gray-400':$store.sidebar.active != 'info'}">
+            <div class="relative flex space-x-2 items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+              </svg>
+              <h1 x-cloak x-bind:class="!$store.sidebar.full && show ? 'dd-visible':'' || !$store.sidebar.full && !show ? 'sm:hidden':'' ">Info</h1>
+            </div>
+            <svg x-cloak x-bind:class="$store.sidebar.full ? '':'sm:hidden'" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </div>
+          <div x-cloak x-show="open" 
+               @click.outside="open=false"
+               x-bind:class="$store.sidebar.full ? 'dd-expanded':'dd-shrinked'"
+            class="text-gray-600 stace-y-3">
+            <h1 class="hover:text-gray-900 curser-pointer">Item 1</h1>
+            <h1 class="hover:text-gray-900 curser-pointer">Item 2</h1>
+            <h1 class="hover:text-gray-900 curser-pointer">Item 3</h1>
+          </div>
+        </div> 
+
+        <div @click="$store.sidebar.active='blog'" class="relative flex justify-between items-center text-gray-400 hover:text-gray-200 hover:bg-gray-800 space-x-2 rounder-md p-2 cursor-pointer"
+             x-data="tooltip"
+             x-on:mouseover="show=true"
+             x-on:mouseleave="show=false"
+             x-bind:class="{'justify-start':$store.sidebar.full, 'sm:justify-center':!$store.sidebar.full, 'text-gray-200 bg-red-600':$store.sidebar.active == 'blog', 'text-gray-400':$store.sidebar.active != 'blog'}">
+          <div class="flex justify-between items-center space-x-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+              <path d="m2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3h2z"></path>
+              <path d="m22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+            </svg>
+            <h1 x-cloak x-bind:class="!$store.sidebar.full && show ? 'dd-visible':'' || !$store.sidebar.full && !show ? 'sm:hidden':'' ">Blog</h1>
+          </div>
+          <h1 x-cloak x-bind:class="$store.sidebar.full ? '':'sm:hidden'" class="w-5 h-5 p-1 bg-green-400 rounded-sm text-sm leading-3 text-center text-gray-200">8</h1>
+        </div>
+
+        <div @click="$store.sidebar.active='schedules'" class="relative flex justify-between items-center text-gray-400 hover:text-gray-200 hover:bg-gray-800 space-x-2 rounder-md p-2 cursor-pointer"
+             x-data="tooltip"
+             x-on:mouseover="show=true"
+             x-on:mouseleave="show=false"
+             x-bind:class="{'justify-start':$store.sidebar.full, 'sm:justify-center':!$store.sidebar.full, 'text-gray-200 bg-red-600':$store.sidebar.active == 'schedules', 'text-gray-400':$store.sidebar.active != 'schedules'}">
+          <div class="flex justify-between items-center space-x-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            <h1 x-cloak x-bind:class="!$store.sidebar.full && show ? 'dd-visible':'' || !$store.sidebar.full && !show ? 'sm:hidden':'' ">Schedule</h1>
+          </div>
+          <div x-bind:class="$store.sidebar.full ? '':'sm:hidden'" class="flex items-center space-x-2">
+            <svg x-cloak xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="16"></line>
+              <line x1="8" y1="12" x2="16" y2="12"></line>
+            </svg>
+            <h1 class="w-5 h-5 p-1 bg-pink-400 rounded-sm text-sm leading-3 text-center text-gray-200">3</h1>
+          </div>
+        </div>
+
+        <div @click="$store.sidebar.active='income'"  x-data="dropdown" class="relative">
+          <div @click="toggle('income')"
+               class="flex justify-between text-gray-400 hover:text-gray-200 hover:bg-gray-800 space-x-2 rounder-md p-2 cursor-pointer"
+               x-data="tooltip"
+               x-on:mouseover="show=true"
+               x-on:mouseleave="show=false"
+               x-bind:class="{'justify-start':$store.sidebar.full, 'sm:justify-center':!$store.sidebar.full, 'text-gray-200 bg-red-600':$store.sidebar.active == 'income', 'text-gray-400':$store.sidebar.active != 'income'}">
+            <div class="relative flex space-x-2 items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                <path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path>
+                <path d="M22 12A10 10 0 0 0 12 2v10z"></path>
+              </svg>
+              <h1 x-cloak x-bind:class="!$store.sidebar.full && show ? 'dd-visible':'' || !$store.sidebar.full && !show ? 'sm:hidden':'' ">Income</h1>
+            </div>
+            <svg x-cloak x-bind:class="$store.sidebar.full ? '':'sm:hidden'" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </div>
+          <div x-show="open" @click.outside="open=false" class="text-gray-400 stace-y-3"
+               x-bind:class="$store.sidebar.full ? 'dd-expanded':'dd-shrinked'">
+            <h1 class="hover:text-gray-900 curser-pointer">Item 1</h1>
+            <h1 class="hover:text-gray-900 curser-pointer">Item 2</h1>
+            <div x-data="sub_dropdown" class="relative w-full">
+              <div @click="sub_toggle()" class="flex items-center justify-between cursor-pointer">
+                <h1 class="hover:text-gray-900 curser-pointer">Item 3</h1>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </div>
+              <div x-cloak x-show="sub_open" @click.outside="sub_open=false" x-bind:class="$store.sidebar.full ? 'dd-expanded':'dd-shrinked'">
+                <h1 class="hover:text-gray-900 curser-pointer">SubItem 1</h1>
+                <h1 class="hover:text-gray-900 curser-pointer">SubItem 2</h1>
+                <h1 class="hover:text-gray-900 curser-pointer">SubItem 3</h1>
+              </div>
+            </div>
+            <h1 class="hover:text-gray-900 curser-pointer">Item 4</h1>
+          </div>
+        </div>
+
+        <div @click="$store.sidebar.active='promote'" x-data="dropdown" class="relative">
+          <div @click="toggle('promote')"
+               class="flex justify-between text-gray-400 hover:text-gray-200 hover:bg-gray-800 space-x-2 rounder-md p-2 cursor-pointer"
+               x-data="tooltip"
+               x-on:mouseover="show=true"
+               x-on:mouseleave="show=false"
+               x-bind:class="{'justify-start':$store.sidebar.full, 'sm:justify-center':!$store.sidebar.full, 'text-gray-200 bg-red-600':$store.sidebar.active == 'promote', 'text-gray-400':$store.sidebar.active != 'promote'}">
+            <div class="relative flex space-x-2 items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                <circle cx="18" cy="5" r="3"></circle>
+                <circle cx="6" cy="12" r="3"></circle>
+                <circle cx="18" cy="19" r="3"></circle>
+                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+              </svg>
+              <h1 x-cloak x-bind:class="!$store.sidebar.full && show ? 'dd-visible':'' || !$store.sidebar.full && !show ? 'sm:hidden':'' ">Promote</h1>
+            </div>
+            <svg x-cloak x-bind:class="$store.sidebar.full ? '':'sm:hidden'" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </div>
+          <div x-cloak x-show="open" @click="open=false" class="text-gray-400 stace-y-3"
+               x-bind:class="$store.sidebar.full ? 'dd-expanded':'dd-shrinked'">
+            <h1 class="hover:text-gray-900 curser-pointer">Item 1</h1>
+            <h1 class="hover:text-gray-900 curser-pointer">Item 2</h1>
+            <h1 class="hover:text-gray-900 curser-pointer">Item 3</h1>
+          </div>
+        </div>
+            -->
+
+      </div>
+    </.nav_bar>
+  </div>
+
