@@ -12,7 +12,8 @@
   <!-- <body style="font-family: 'Josefin Sans', sans-serif;">   -->
   <body x-data class="antialiased font-sans h-screen mx-auto flex justify-between max-w-7xl">
 
-      <%= live_render(@conn, BaseFrameworkWeb.LiveMenu) %>
+    <% render "header_menu.html", assigns %>
+      <%= # live_render(@conn, BaseFrameworkWeb.LiveMenu) %>
 
     <div class="">
 
