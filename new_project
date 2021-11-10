@@ -74,6 +74,9 @@ while true; do
       $npm install
       cd -
 
+      echo "+ cleanup"
+      rm new_project
+
       echo "+ bootstraping git"
       git init
       git add .
