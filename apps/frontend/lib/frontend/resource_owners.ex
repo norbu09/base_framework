@@ -1,4 +1,3 @@
-# TODO: add last_login_at to all the login code
 defmodule Frontend.ResourceOwners do
   @behaviour Boruta.Oauth.ResourceOwners
 

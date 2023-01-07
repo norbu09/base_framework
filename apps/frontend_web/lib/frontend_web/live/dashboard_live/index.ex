@@ -14,5 +14,4 @@ defmodule FrontendWeb.DashboardLive.Index do
      |> assign(:page_title, "dashboard")
      |> assign(:changeset, true)}
   end
-
 end

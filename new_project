@@ -47,7 +47,8 @@ while true; do
       done
 
       echo "+ patching files"
-      tmp="/tmp/${name}.out.tmp.$$"
+      mkdir ./tmp
+      tmp="./tmp/${name}.out.tmp.$$"
       for i in `grep -rl base_framework *`; do
         sed "s/base_framework/${name}/g" "${i}" > ${tmp} && mv ${tmp} "${i}"
       done
@@ -57,6 +58,7 @@ while true; do
       for l in `grep -rl PROJECT_DOMAIN *`; do
         sed "s/PROJECT_DOMAIN/${domain}/g" "${l}" > ${tmp} && mv ${tmp} "${l}"
       done
+      rmdir ./tmp
 
       echo "+ fetching elixir dependencies"
       mix deps.get

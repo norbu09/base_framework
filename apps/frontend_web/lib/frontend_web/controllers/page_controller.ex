@@ -17,5 +17,4 @@ defmodule FrontendWeb.PageController do
   def blog(conn, _params) do
     render(conn, :blog)
   end
-
 end

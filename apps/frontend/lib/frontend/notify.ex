@@ -23,7 +23,8 @@ defmodule Frontend.Notify do
 
   defp via(%User{} = user, :discord) do
     message =
-      %{content: "Yay, we got a new user: #{user.email} on PROJECT_DOMAIN :tada:"} |> Jason.encode!()
+      %{content: "Yay, we got a new user: #{user.email} on PROJECT_DOMAIN :tada:"}
+      |> Jason.encode!()
 
     if has?(:notify_discord) do
       res =
@@ -36,5 +37,4 @@ defmodule Frontend.Notify do
     Logger.debug(message)
     user
   end
-
 end
