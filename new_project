@@ -54,7 +54,7 @@ while true; do
       for j in `grep -rl BaseFramework *`; do
         sed "s/BaseFramework/${camelcase}/g" "${j}" > ${tmp} && mv ${tmp} "${j}"
       done
-      for l in `PROJECT_DOMAIN`; do
+      for l in `grep -rl PROJECT_DOMAIN`; do
         sed "s/PROJECT_DOMAIN/${domain}/g" "${l}" > ${tmp} && mv ${tmp} "${l}"
       done
 
