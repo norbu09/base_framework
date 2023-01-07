@@ -1,0 +1,85 @@
+#!/bin/sh
+
+cwd=`pwd`
+repo="https://github.com/norbu09/base_framework.git"
+npm=npm
+
+echo "Enter the name of your new project:"
+read name
+echo "Enter the domain of your new project:"
+read domain
+echo "Enter the base path to your projects (like ${HOME}/code):"
+read path
+
+camelcase=`echo "${name}" | perl -pe 's/(^|_)([a-z])/uc($2)/ge'`
+
+echo "I will create a new project under ${path}/${name}"
+while true; do
+  read -p "does this look correct? " yn
+  case $yn in
+    [Nn]* )
+      cd ${cwd}
+      exit;;
+    [Yy]* )
+      echo "+ creating directory ${name}"
+      mkdir -p ${path}
+
+      echo "+ bootstrapping directory"
+      git clone --depth=1 ${repo} ${path}/${name}
+      cd ${path}/${name}
+      rm -rf .git
+
+      echo "+ renaming directories"
+      for k in `find . -name *base_framework* -type d`; do
+        file=`echo ${k} | sed "s/base_framework/${name}/g"`
+        mv "${k}" "${file}"
+      done
+      echo "+ renaming directories (2nd pass)"
+      for k in `find . -name *base_framework* -type d`; do
+        file=`echo ${k} | sed "s/base_framework/${name}/g"`
+        mv "${k}" "${file}"
+      done
+
+      echo "+ renaming files"
+      for k in `find . -name *base_framework* -type f`; do
+        file=`echo ${k} | sed "s/base_framework/${name}/g"`
+        mv "${k}" "${file}"
+      done
+
+      echo "+ patching files"
+      tmp="/tmp/${name}.out.tmp.$$"
+      for i in `grep -rl base_framework *`; do
+        sed "s/base_framework/${name}/g" "${i}" > ${tmp} && mv ${tmp} "${i}"
+      done
+      for j in `grep -rl BaseFramework *`; do
+        sed "s/BaseFramework/${camelcase}/g" "${j}" > ${tmp} && mv ${tmp} "${j}"
+      done
+      for l in `PROJECT_DOMAIN`; do
+        sed "s/PROJECT_DOMAIN/${domain}/g" "${l}" > ${tmp} && mv ${tmp} "${l}"
+      done
+
+      echo "+ fetching elixir dependencies"
+      mix deps.get
+
+      echo "+ fetching js dependencies"
+      cd apps/frontend_web/assets
+      $npm install
+      cd -
+
+      echo "+ cleanup"
+      rm new_project
+
+      echo "+ bootstraping git"
+      git init
+      git add .
+      git commit -m "empty ${name} project - fill me with ideas"
+
+      exit;;
+    * ) echo "Please answer yes or no.";;
+  esac
+
+
+  echo "+ next steps: init fly.io with:"
+  echo "+ try your new project out by running:"
+  echo "iex -S mix phx.server"
+done

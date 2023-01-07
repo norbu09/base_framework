@@ -1,0 +1,42 @@
+<.admin_dashboard>
+  <.header>
+    Listing Users
+    <:actions>
+      <.link patch={~p"/admin/users/new"}>
+        <.button>New User</.button>
+      </.link>
+    </:actions>
+  </.header>
+
+  <.table id="users" rows={@users} row_click={&JS.navigate(~p"/admin/users/#{&1}")}>
+    <:col :let={user} label="email"><%= user.email %></:col>
+    <:col :let={user} label="role"><%= user.role %></:col>
+    <:action :let={user}>
+      <div class="sr-only">
+        <.link navigate={~p"/admin/users/#{user}"}>Show</.link>
+      </div>
+      <.link patch={~p"/admin/users/#{user}/edit"}>Edit</.link>
+    </:action>
+    <:action :let={user}>
+      <.link phx-click={JS.push("delete", value: %{id: user.id})} data-confirm="Are you sure?">
+        Delete
+      </.link>
+    </:action>
+  </.table>
+
+  <.modal
+    :if={@live_action in [:new, :edit]}
+    id="user-modal"
+    show
+    on_cancel={JS.navigate(~p"/admin/users")}
+  >
+    <.live_component
+      module={FrontendWeb.Admin.UserLive.FormComponent}
+      id={@user.id || :new}
+      title={@page_title}
+      action={@live_action}
+      user={@user}
+      navigate={~p"/admin/users"}
+    />
+  </.modal>
+</.admin_dashboard>

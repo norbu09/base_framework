@@ -1,0 +1,42 @@
+<.admin_dashboard>
+  <.header>
+    Listing Clients
+    <:actions>
+      <.link patch={~p"/admin/client/new"}>
+        <.button>New Client</.button>
+      </.link>
+    </:actions>
+  </.header>
+
+  <.table id="clients" rows={@clients} row_click={&JS.navigate(~p"/admin/client/#{&1}")}>
+    <:col :let={client} label="Name"><%= client.name %></:col>
+    <:col :let={client} label="Redirect uri"><%= client.redirect_uris %></:col>
+    <:action :let={client}>
+      <div class="sr-only">
+        <.link navigate={~p"/admin/client/#{client}"}>Show</.link>
+      </div>
+      <.link patch={~p"/admin/client/#{client}/edit"}>Edit</.link>
+    </:action>
+    <:action :let={client}>
+      <.link phx-click={JS.push("delete", value: %{id: client.id})} data-confirm="Are you sure?">
+        Delete
+      </.link>
+    </:action>
+  </.table>
+
+  <.modal
+    :if={@live_action in [:new, :edit]}
+    id="client-modal"
+    show
+    on_cancel={JS.navigate(~p"/admin/clients")}
+  >
+    <.live_component
+      module={FrontendWeb.Admin.ClientsLive.FormComponent}
+      id={@client.id || :new}
+      title={@page_title}
+      action={@live_action}
+      client={@client}
+      navigate={~p"/admin/clients"}
+    />
+  </.modal>
+</.admin_dashboard>

@@ -1,0 +1,36 @@
+<.admin_dashboard>
+  <.header>
+    Clients <%= @clients.id %>
+    <:subtitle>This is a clients record from your database.</:subtitle>
+    <:actions>
+      <.link patch={~p"/admin/client/#{@clients}/show/edit"} phx-click={JS.push_focus()}>
+        <.button>Edit clients</.button>
+      </.link>
+    </:actions>
+  </.header>
+
+  <.list>
+    <:item title="Client ID"><%= @clients.id %></:item>
+    <:item title="Name"><%= @clients.name %></:item>
+    <:item title="Secret"><%= @clients.secret %></:item>
+    <:item title="Redirect URIs"><%= @clients.redirect_uris %></:item>
+  </.list>
+
+  <.back navigate={~p"/admin/clients"}>Back to overview</.back>
+
+  <.modal
+    :if={@live_action == :edit}
+    id="clients-modal"
+    show
+    on_cancel={JS.patch(~p"/admin/client/#{@clients}")}
+  >
+    <.live_component
+      module={FrontendWeb.Admin.ClientsLive.FormComponent}
+      id={@clients.id}
+      title={@page_title}
+      action={@live_action}
+      clients={@clients}
+      navigate={~p"/admin/client/#{@clients}"}
+    />
+  </.modal>
+</.admin_dashboard>
